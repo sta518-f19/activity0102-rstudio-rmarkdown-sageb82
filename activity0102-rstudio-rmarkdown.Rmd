@@ -21,7 +21,7 @@ library(datasauRus)
 
 
 
-First let's plot the data in the dino dataset:
+Dino Dataset Plot 
 
 ```{r plot-dino, fig.height=3, fig.width=6}
 dino_data <- datasaurus_dozen %>%
@@ -31,7 +31,7 @@ ggplot(data = dino_data, mapping = aes(x = x, y = y)) +
   geom_point()
 ```
 
-And next calculate the correlation between `x` and `y` in this dataset:
+Dino Dataset Correlation
 
 ```{r cor-dino}
 dino_data %>%
