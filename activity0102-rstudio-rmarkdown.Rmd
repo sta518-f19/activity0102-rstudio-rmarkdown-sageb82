@@ -2,7 +2,12 @@
 title: "Activity 1.2 - RStudio and R Markdown"
 author: "Sage Blunt"
 date: "8/26/2019"
-output: html_document
+output: 
+  html_document: 
+    fig_height: 6
+    fig_width: 8
+    highlight: zenburn
+    theme: cosmo
 ---
 
 ### Load packages
@@ -17,12 +22,10 @@ library(datasauRus)
 
 ( 1846 rows, 3 columns. Variables - dataset, x, y.)
 
+
 ### Exercise 2
 
-
-
-Dino Dataset Plot 
-
+*Dino Dataset Plot* 
 ```{r plot-dino, fig.height=3, fig.width=6}
 dino_data <- datasaurus_dozen %>%
   filter(dataset == "dino")
@@ -31,17 +34,16 @@ ggplot(data = dino_data, mapping = aes(x = x, y = y)) +
   geom_point()
 ```
 
-Dino Dataset Correlation
-
+*Dino Dataset Correlation*
 ```{r cor-dino}
 dino_data %>%
   summarize(r = cor(x, y))
 ```
 
+
 ### Exercise 3
 
-Star dataset plot
-
+*Star Dataset Plot*
 ```{r plot-star,fig.height=3, fig.width=6}
       star_data <- datasaurus_dozen %>%
         filter(dataset == "star")
@@ -50,20 +52,18 @@ Star dataset plot
   geom_point()
 ```
 
-Star dataset correlation
-
+*Star Dataset Correlation*
 ```{r cor-star}
 star_data %>%
   summarize(r = cor(x, y))
 ```
 
-The value of r for both the dino data and star data are similar.
+- The value of r for both the dino data and star data are similar.
 
 
 ### Exercise 4
 
-Circle dataset plot
-
+*Circle Dataset Plot*
 ```{r plot-circle,fig.height=3, fig.width=6}
       circle_data <- datasaurus_dozen %>%
         filter(dataset == "circle")
@@ -72,15 +72,33 @@ Circle dataset plot
   geom_point()
 ```
 
-Circle dataset correlation
-
+*Circle Dataset Correlation*
 ```{r cor-circle}
 circle_data %>%
   summarize(r = cor(x, y))
 ```
 
-The value of r for the circle dataset is also very similar to the dino dataset.
+- The value of r for the circle dataset is also very similar to the dino dataset.
+
 
 ### Exercise 5
 
-(Add code and narrative as needed. To add R chunks either type out the backticks, curly braces, and the letter `r` or use the Insert chunk button above, green C+.)
+*Plots for All Datasaurus Datasets*
+```{r plot-datasaurus,fig.height=7, fig.width=6}
+ggplot(data = datasaurus_dozen, aes(x = x, y = y, color = dataset)) +
+  geom_point() +
+  facet_wrap(~ dataset, ncol = 3) +
+  theme(legend.position = "none")
+```
+
+
+*Correlations for All Datasaurus Datasets*
+``` {r corr-datasaurus}
+datasaurus_dozen %>%
+  group_by(dataset) %>%
+  summarize(r = cor(x, y)) %>%
+  print(13)
+```
+
+- All r values are very similar to each other despite their plots being extremely different. This shows how correlation on its own can be decieving.
+
